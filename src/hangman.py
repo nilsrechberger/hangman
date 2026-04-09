@@ -28,7 +28,7 @@ def init_game() -> str:
     show_hangman(attempt=0)
     return secret, wordBoard
 
-def check_guess(guess: str, secret: str, attempt):
+def check_guess(guess: str, secret: str) -> list[int] | None:
     if guess in secret:
         ind = [i for i, val in enumerate(secret) if val == guess]
         return ind
@@ -42,14 +42,18 @@ def main() -> None:
     # Set max attempts here
     while attempts <= 2: # Make sure there are enough hangman imgs!
         guess = input('Please set a guess: ')
-        result = check_guess(guess=guess, secret=secret, attempt=attempts)
+        result = check_guess(guess=guess, secret=secret)
         if result != None:
             for ind in result:
                 wordBoard.update_wordBoard(ind=ind, char=guess)
         else:
             attempts += 1
             show_hangman(attempt=attempts)
+        current_word = "".join(wordBoard.wordBoard)
         print(wordBoard)
+        if current_word == secret:
+            print('YOU WON!')
+            break
 
 if __name__ == '__main__':
     main()
