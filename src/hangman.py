@@ -28,18 +28,23 @@ def init_game() -> str:
     show_hangman(attempt=0)
     return secret, wordBoard
 
-def check_guess(guess: str, secret: str, attempt) -> True | False:
-    if guess in list(secret):
-        print(True)
+def check_guess(guess: str, secret: str, attempt):
+    if guess in secret:
+        idx = secret.index(guess)
+        return idx
     else:
-        show_hangman(attempt=attempt)
+        None
 
 def main() -> None:
     secret, wordBoard = init_game()
     print(wordBoard)
-    for attempt in range(3): # Set max attempts here
+    for attempt in range(1, 4): # Set max attempts here
         guess = input('Please set a guess: ')
-        check_guess(guess=guess, secret=secret, attempt=attempt)
+        result = check_guess(guess=guess, secret=secret, attempt=attempt)
+        if result != None:
+            wordBoard.update_wordBoard(ind=result, char=guess)
+        else:
+            show_hangman(attempt=attempt)
         print(wordBoard)
 
 if __name__ == '__main__':
