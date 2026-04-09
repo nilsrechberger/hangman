@@ -37,14 +37,16 @@ def check_guess(guess: str, secret: str, attempt):
 
 def main() -> None:
     secret, wordBoard = init_game()
+    attempts = 0
     print(wordBoard)
-    for attempt in range(1, 4): # Set max attempts here
+    while attempts <= 4: # Set max attempts here
         guess = input('Please set a guess: ')
-        result = check_guess(guess=guess, secret=secret, attempt=attempt)
+        result = check_guess(guess=guess, secret=secret, attempt=attempts)
         if result != None:
             wordBoard.update_wordBoard(ind=result, char=guess)
         else:
-            show_hangman(attempt=attempt)
+            attempts += 1
+            show_hangman(attempt=attempts)
         print(wordBoard)
 
 if __name__ == '__main__':
