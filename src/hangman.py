@@ -30,8 +30,8 @@ def init_game() -> str:
 
 def check_guess(guess: str, secret: str, attempt):
     if guess in secret:
-        idx = secret.index(guess)
-        return idx
+        ind = [i for i, val in enumerate(secret) if val == guess]
+        return ind
     else:
         None
 
@@ -39,11 +39,13 @@ def main() -> None:
     secret, wordBoard = init_game()
     attempts = 0
     print(wordBoard)
-    while attempts <= 4: # Set max attempts here
+    # Set max attempts here
+    while attempts <= 2: # Make sure there are enough hangman imgs!
         guess = input('Please set a guess: ')
         result = check_guess(guess=guess, secret=secret, attempt=attempts)
         if result != None:
-            wordBoard.update_wordBoard(ind=result, char=guess)
+            for ind in result:
+                wordBoard.update_wordBoard(ind=ind, char=guess)
         else:
             attempts += 1
             show_hangman(attempt=attempts)
