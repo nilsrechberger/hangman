@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 from os import system
+from getpass import getpass
 
 class WordBoard():
     def __init__(self, secret) -> None:
@@ -23,7 +24,7 @@ def show_hangman(attempt: int):
     system(f'cat img/hangman_{attempt}.txt')
 
 def init_game() -> str:
-    secret = input('Please set a secret word: ')
+    secret = getpass('Please set a secret word: ')
     secret = secret.lower()
     wordBoard = WordBoard(secret=secret)
     show_hangman(attempt=0)
