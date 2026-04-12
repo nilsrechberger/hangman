@@ -115,6 +115,7 @@ def main() -> None:
         guess = guess.lower()
         result = check_guess(guess=guess, secret=secret)
         if result != None:
+            show_hangman(attempt=attempts)
             for ind in result:
                 wordBoard.update_wordBoard(ind=ind, char=guess)
         else:
